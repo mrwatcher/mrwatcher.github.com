@@ -127,6 +127,176 @@
 
 
 
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/08/02/have-Filter/" title="是否存在一种安全过滤器" itemprop="url">是否存在一种安全过滤器</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="CHENS.WANG" target="_blank" itemprop="author">CHENS.WANG</a>
+		
+  <p class="article-time">
+    <time datetime="2014-08-02T04:58:16.000Z" itemprop="datePublished"> 發表於 2014-08-02</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>是否可以在有需求的类中构造一个安全过滤器的方法,来实现初步的防sql注入或者存储型xss呢?<br>代码片段大致如下：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Private</span> <span class="variable">$key</span> = md5(uniqid());</span><br><span class="line"><span class="keyword">Public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">Parent</span>::construct();</span><br><span class="line">    <span class="variable">$this</span>-&gt;filter();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">Private</span> <span class="function"><span class="keyword">function</span> <span class="title">filter</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="comment">//pathinfo;</span></span><br><span class="line">    <span class="keyword">If</span>(<span class="variable">$this</span>-&gt;key == <span class="variable">$_POST</span>[<span class="string">'key'</span>] &amp;&amp; <span class="keyword">NULL</span> == <span class="variable">$SERVER</span>[<span class="string">'HTTP_REFER'</span>])&#123;</span><br><span class="line">        <span class="variable">$_POST</span> = Array_merge(<span class="variable">$_POST</span>,<span class="variable">$_GET</span>);</span><br><span class="line">        <span class="keyword">Foreach</span>(<span class="variable">$_POST</span> <span class="keyword">as</span> <span class="variable">$k</span>=&gt;<span class="variable">$v</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            preg_match(<span class="string">'/id/'</span>,<span class="variable">$k</span>) &amp;&amp; (int)<span class="variable">$v</span>;</span><br><span class="line">            <span class="variable">$_POST</span>[<span class="variable">$k</span>] = htmlspecialchars(<span class="variable">$v</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"&lt;script&gt;alert("</span>非法请求!!!<span class="string">")&lt;/script&gt;"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="后记">后记</h1><ul>
+<li>看来当时想多了,后来上公司工作接触yii的时候发现早就存在这种东西了<br>！啊哈哈…哎,我还是太菜 by:15.04.01</li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/不成熟猜想/">不成熟猜想</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/06/20/I-am-23-years-old/" title="我23岁了!" itemprop="url">我23岁了!</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="CHENS.WANG" target="_blank" itemprop="author">CHENS.WANG</a>
+		
+  <p class="article-time">
+    <time datetime="2014-06-19T17:03:11.000Z" itemprop="datePublished"> 發表於 2014-06-20</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>路，走了23年，方向却始终未变！<br>以下内容纯属抽风！！！谨慎观看！<br>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2014/06/20/I-am-23-years-old/#more">Read More</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/深夜随想/">深夜随想</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/06/10/at-last-with-sometime-in-if/" title="对于if中变量后置想说的东西" itemprop="url">对于if中变量后置想说的东西</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="CHENS.WANG" target="_blank" itemprop="author">CHENS.WANG</a>
+		
+  <p class="article-time">
+    <time datetime="2014-06-10T15:20:54.000Z" itemprop="datePublished"> 發表於 2014-06-10</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>今天碰到一个bug是关于if判断容易疏漏的点！<br>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2014/06/10/at-last-with-sometime-in-if/#more">Read More</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/BUG使人进步/">BUG使人进步</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
 
 </div>
       <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
@@ -148,6 +318,18 @@
 		
 			
 				<li><a href="/tags/github/" title="github">github<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/不成熟猜想/" title="不成熟猜想">不成熟猜想<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/BUG使人进步/" title="BUG使人进步">BUG使人进步<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/深夜随想/" title="深夜随想">深夜随想<sup>1</sup></a></li>
 			
 		
 		</ul>
