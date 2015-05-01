@@ -11,15 +11,15 @@
     
 
     
-    <meta name="description" content="看看一下sublime的插件,没感觉支持markdown啊!">
+    <meta name="description" content="第一次自己使用hexo这种东西,看了一些说明,最后搭建出来这个博客！下面是我自己搭建的过程,仅供参考…">
 <meta property="og:type" content="article">
 <meta property="og:title" content="use hexo&github for mac">
 <meta property="og:url" content="http://xcar.work/2015/04/27/use-hexo-github-for-mac/index.html">
 <meta property="og:site_name" content="CHENS.WANG">
-<meta property="og:description" content="看看一下sublime的插件,没感觉支持markdown啊!">
+<meta property="og:description" content="第一次自己使用hexo这种东西,看了一些说明,最后搭建出来这个博客！下面是我自己搭建的过程,仅供参考…">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="use hexo&github for mac">
-<meta name="twitter:description" content="看看一下sublime的插件,没感觉支持markdown啊!">
+<meta name="twitter:description" content="第一次自己使用hexo这种东西,看了一些说明,最后搭建出来这个博客！下面是我自己搭建的过程,仅供参考…">
 
     
     <link rel="alternative" href="/atom.xml" title="CHENS.WANG" type="application/atom+xml">
@@ -91,40 +91,25 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目錄</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#先测试一下"><span class="toc-number">1.</span> <span class="toc-text">先测试一下</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#代码用例"><span class="toc-number">1.1.</span> <span class="toc-text">代码用例</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#是么？"><span class="toc-number">1.1.0.0.1.</span> <span class="toc-text">是么？</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#对于github_pages的申请配置"><span class="toc-number">1.</span> <span class="toc-text">对于github pages的申请配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#对于hexo的安装和配置"><span class="toc-number">2.</span> <span class="toc-text">对于hexo的安装和配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#mac下hexo的安装"><span class="toc-number">2.1.</span> <span class="toc-text">mac下hexo的安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hexo的配置"><span class="toc-number">2.2.</span> <span class="toc-text">hexo的配置</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#利用hexo在github上搭建个人博客"><span class="toc-number">3.</span> <span class="toc-text">利用hexo在github上搭建个人博客</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#hexo创建一个md文件"><span class="toc-number">3.1.</span> <span class="toc-text">hexo创建一个md文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#将md文件生成静态html"><span class="toc-number">3.2.</span> <span class="toc-text">将md文件生成静态html</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hexo本地调试"><span class="toc-number">3.3.</span> <span class="toc-text">hexo本地调试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在github上搭建个人博客"><span class="toc-number">3.4.</span> <span class="toc-text">在github上搭建个人博客</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#后记:"><span class="toc-number">4.</span> <span class="toc-text">后记:</span></a></li></ol>
 		
 		</div>
 		
-		<p>看看一下sublime的插件,没感觉支持markdown啊!<br><a id="more"></a></p>
-<h1 id="先测试一下">先测试一下</h1><p><del><strong>挖藕!</strong> <em>果然不一样了呢!</em></del></p>
-<h2 id="代码用例">代码用例</h2><p><code>&lt;?php echo 111; ?&gt;</code><br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line"><span class="comment">/**</span><br><span class="line"> *hehe</span><br><span class="line"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">aa</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="comment">//1111</span></span><br><span class="line">    echo <span class="number">111</span>;</span><br><span class="line">&#125;</span><br><span class="line">aa();</span><br><span class="line">set_error_handler(<span class="function"><span class="keyword">function</span><span class="params">()</span> <span class="title">user</span><span class="params">($param)</span><span class="type">:array</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> [];</span><br><span class="line">    &#125;);</span><br><span class="line"> ?&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h5 id="是么？">是么？</h5><ol>
-<li><a href="http://chens.wang" target="_blank" rel="external">阿斯顿</a></li>
-<li><a href="http://baidu.com" target="_blank" rel="external">萨顶顶</a></li>
-<li>啊啊啊啊</li>
+		<p>第一次自己使用hexo这种东西,看了一些说明,最后搭建出来这个博客！<br>下面是我自己搭建的过程,仅供参考…<br><a id="more"></a></p>
+<h1 id="对于github_pages的申请配置">对于github pages的申请配置</h1><ol>
+<li>对于github如何申请,如何跨过山的大海等等不做描述.教程很多!</li>
+<li>根据要求创建好page这个项目后在项目目录下建立<em>CNAME</em>文件,在文件中添加一条你的域名,便可将DNS中设置好的域名利用别名跳转解析到xxx.io这个项目上了!<h1 id="对于hexo的安装和配置">对于hexo的安装和配置</h1>利用hexo可以将.md文件转换为pdf,html等利于阅读的现代文本格式,同理对于html的<br>格式我们还可以将其上传到支持静态网页浏览的空间(SAE,GITHUB PAGE等),以组成有趣<br>的个人blog。<h2 id="mac下hexo的安装">mac下hexo的安装</h2>hexo是一个免费的基于<a href="http://nodejs.org" target="_blank" rel="external">node.js</a>的静态博客生成工具,所以先要在mac<br>上装入nodejs.<br><em>mac下安装nodejs</em>可以使用<code>&gt;brew install nodejs</code>命令进行安装或者直接从<a href="http://nodejs.org" target="_blank" rel="external">官网</a>下载安装<code>&gt;curl -O http://npmjs.org/install.sh | sh</code>亦可.<br>安装完之后便可使用nodejs默认的包管理软件npm进行hexo的安装,执行<code>&gt;sudo npm install hexo -g</code>进行安装,值得注意的是如果hexo未安装成功请尽量使用sudo命令获得权限进行安装,并且保证nodejs版本大于<em>v0.10</em>避免不必要的麻烦导致安装时失败.<br>如果npm安装hexo发生未知错误时,在排除npm版本过低,nodejs版本过低,sudo权限等原因后,执行这两个命令<code>&gt;sudo npm config set user 0</code>和<code>sudo npm config set unsafe-perm true</code>后再执行<code>&gt;sudo npm install hexo -g</code>(以上只是针对于mac机…)<h2 id="hexo的配置">hexo的配置</h2>将hexo安装完成后,便可使用<code>&gt;sudo hexo init &#39;path&#39;</code>在path目录下对hexo项目进行初始化,这一操作将生成其所需项目文件.<br>顺利完成便可进行下一步操作了!<br>如果已经安装git命令可以拉去一个相当漂亮的模板到thems目录下来增加颜值<code>&gt;git clone https://github.com/wuchong/jacman.git themes/jacman</code>.<br>在项目根目录下的_conf.yml便是整个项目的配置文件.可以在其中对必要参数,名称和thems进行修改.<h1 id="利用hexo在github上搭建个人博客">利用hexo在github上搭建个人博客</h1><h2 id="hexo创建一个md文件">hexo创建一个md文件</h2></li>
+<li>可以再source目录下直接touch生成.</li>
+<li>还可以用<code>&gt;sudo hexo new &#39;title post&#39;</code>这种形式创建一个markdown文档了!<h2 id="将md文件生成静态html">将md文件生成静态html</h2>shell下使用命令<code>&gt;sudo hexo g</code>便可将md顺利的生成静态html,如若生成文件有些问题.请重新执行<code>&gt;sudo hexo clean|sudo hexo g</code>即可.<h2 id="hexo本地调试">hexo本地调试</h2>shell下使用命令<code>&gt;sudo hexo s</code><h2 id="在github上搭建个人博客">在github上搭建个人博客</h2>若想程序自动连接到github上,还要安装相应的hexo插件<code>&gt;sudo npm install hexo-deployer-git --save</code>来辅助完成.<br>插件安装完成后,可以安装git命令<code>&gt;sudo brew install git</code>或者使用https方式连接到github<br>而后要在_conf.yml文件中加入如下配置:<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">deploy</span>:</span><br><span class="line">  <span class="attribute">type</span>: git</span><br><span class="line">  <span class="attribute">repo</span>: <span class="attribute">https</span>:<span class="comment">//github.com/mrwatcher/mrwatcher.github.com</span></span><br><span class="line">  <span class="attribute">branch</span>: master</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
-<ul>
-<li>嗦了</li>
-<li>阿萨</li>
-<li>D大调</li>
-<li>凤飞飞</li>
+<p><em>配置好以后就可以每次使用<code>&gt;sudo hexo clean|sudo hexo g -d</code>命令,<br>在有新东西时生成静态html同时上传到github的这个page项目的主干上面上了!</em></p>
+<h1 id="后记:">后记:</h1><ul>
+<li>markdown是一个非常爽的语法。非常适合写作,或者说就是为了写作而生的！</li>
+<li>值得注意的是hexo的默认配置文件(_config.yml),格式非常严格,需要在每项配置‘：’后面加入空格才能保证其格式正确.</li>
+<li>可以利用svn或者git开放局部source目录,来搭建团队技术blog.</li>
+<li>md格式非常灵活,属于写作原格式.所以每次尽管已经生成了静态文件,对于原md文档,尽量保留备份才是明智选择！</li>
 </ul>
-<table>
-<thead>
-<tr>
-<th>aaa</th>
-<th>bbb</th>
-<th>ccc</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>2</td>
-<td>3</td>
-</tr>
-</tbody>
-</table>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -161,7 +146,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目錄</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#先测试一下"><span class="toc-number">1.</span> <span class="toc-text">先测试一下</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#代码用例"><span class="toc-number">1.1.</span> <span class="toc-text">代码用例</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#是么？"><span class="toc-number">1.1.0.0.1.</span> <span class="toc-text">是么？</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#对于github_pages的申请配置"><span class="toc-number">1.</span> <span class="toc-text">对于github pages的申请配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#对于hexo的安装和配置"><span class="toc-number">2.</span> <span class="toc-text">对于hexo的安装和配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#mac下hexo的安装"><span class="toc-number">2.1.</span> <span class="toc-text">mac下hexo的安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hexo的配置"><span class="toc-number">2.2.</span> <span class="toc-text">hexo的配置</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#利用hexo在github上搭建个人博客"><span class="toc-number">3.</span> <span class="toc-text">利用hexo在github上搭建个人博客</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#hexo创建一个md文件"><span class="toc-number">3.1.</span> <span class="toc-text">hexo创建一个md文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#将md文件生成静态html"><span class="toc-number">3.2.</span> <span class="toc-text">将md文件生成静态html</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hexo本地调试"><span class="toc-number">3.3.</span> <span class="toc-text">hexo本地调试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在github上搭建个人博客"><span class="toc-number">3.4.</span> <span class="toc-text">在github上搭建个人博客</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#后记:"><span class="toc-number">4.</span> <span class="toc-text">后记:</span></a></li></ol>
  
   </div>
 
