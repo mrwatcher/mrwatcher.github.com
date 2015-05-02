@@ -4,22 +4,25 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>由于nginx的fastcgi变量解析错误,引起的任意执行php脚本漏洞 | CHENS.WANG</title>
+    <title>我理解的php引用计数与写时复制 | CHENS.WANG</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="CHENS.WANG">
     
 
     
-    <meta name="description" content="不要说话 细细体会">
+    <meta name="description" content="12345//如果声明$a是一个十万ip的大文件$a = 10w IP FILE;$b = $a;$c = &amp;amp;$a//问上面两行哪个会造成大资源浪费?
+忘记从哪看到了问题了,貌似很流行分析…下面是我的分析">
 <meta property="og:type" content="article">
-<meta property="og:title" content="由于nginx的fastcgi变量解析错误,引起的任意执行php脚本漏洞">
-<meta property="og:url" content="http://xcar.work/2015/03/02/nginx-param-err-doing-script-hole/index.html">
+<meta property="og:title" content="我理解的php引用计数与写时复制">
+<meta property="og:url" content="http://xcar.work/2014/04/02/php-copy-on-write/index.html">
 <meta property="og:site_name" content="CHENS.WANG">
-<meta property="og:description" content="不要说话 细细体会">
+<meta property="og:description" content="12345//如果声明$a是一个十万ip的大文件$a = 10w IP FILE;$b = $a;$c = &amp;amp;$a//问上面两行哪个会造成大资源浪费?
+忘记从哪看到了问题了,貌似很流行分析…下面是我的分析">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="由于nginx的fastcgi变量解析错误,引起的任意执行php脚本漏洞">
-<meta name="twitter:description" content="不要说话 细细体会">
+<meta name="twitter:title" content="我理解的php引用计数与写时复制">
+<meta name="twitter:description" content="12345//如果声明$a是一个十万ip的大文件$a = 10w IP FILE;$b = $a;$c = &amp;amp;$a//问上面两行哪个会造成大资源浪费?
+忘记从哪看到了问题了,貌似很流行分析…下面是我的分析">
 
     
     <link rel="alternative" href="/atom.xml" title="CHENS.WANG" type="application/atom+xml">
@@ -75,14 +78,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/03/02/nginx-param-err-doing-script-hole/" title="由于nginx的fastcgi变量解析错误,引起的任意执行php脚本漏洞" itemprop="url">由于nginx的fastcgi变量解析错误,引起的任意执行php脚本漏洞</a>
+      <a href="/2014/04/02/php-copy-on-write/" title="我理解的php引用计数与写时复制" itemprop="url">我理解的php引用计数与写时复制</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="CHENS.WANG" target="_blank" itemprop="author">CHENS.WANG</a>
 		
   <p class="article-time">
-    <time datetime="2015-03-02T06:49:50.000Z" itemprop="datePublished"> 發表於 2015-03-02</time>
+    <time datetime="2014-04-02T10:30:34.000Z" itemprop="datePublished"> 發表於 2014-04-02</time>
     
   </p>
 </header>
@@ -91,11 +94,17 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目錄</strong>
 		
-			
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#我的初步分析"><span class="toc-number">1.</span> <span class="toc-text">我的初步分析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#我的继续分析"><span class="toc-number">2.</span> <span class="toc-text">我的继续分析</span></a></li></ol>
 		
 		</div>
 		
-		  
+		<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//如果声明$a是一个十万ip的大文件</span></span><br><span class="line"><span class="label">$a</span> = 10w IP <span class="keyword">FILE</span>;</span><br><span class="line"><span class="label">$b</span> = <span class="label">$a</span>;</span><br><span class="line"><span class="label">$c</span> = &amp;<span class="label">$a</span></span><br><span class="line"><span class="comment">//问上面两行哪个会造成大资源浪费?</span></span><br></pre></td></tr></table></figure>
+<p>忘记从哪看到了问题了,貌似很流行分析…下面是我的分析<br><a id="more"></a></p>
+<h1 id="我的初步分析">我的初步分析</h1><p>  首先，当声明$a的时候,在内存中申请空间将$a这个字符存入栈型的字符表中<br>然后将10w ip的file以zval结构存入与字符$a没有任何关系的内存堆区中,<br>然后用指针使$a与zval结构的值联系在一起,此时$a指向该值,</p>
+<p>  <em>一个zval结构存在四个属性分别是value,type，refcount,is_ref,其中refcount为引用计数</em>,因为$a指向该结构所以<code>refcount=1</code>,这时$b赋值给$a,由于php内核的优化机制,当$b=$a的时候,<br>$b会再申请一片内存空间将$b这个字符压入字符表中并且因为$b与$a的zval值相同,$b会直接引用$a的zval值.</p>
+<p>  将$b的指针直接指向$a的zval值,从而使内存得到优化,这时由于该zval结构被两个指针指向,引用两次,所以此时<code>refcount=2</code>,是不是跟想象中不同？<br>这就对了,请继续听。</p>
+<h1 id="我的继续分析">我的继续分析</h1><p>  此时is_ref会判断自身是否被引用如果被引用<code>is_ref = 1</code>,否则<code>is_ref = 0</code>,<br>所以当<code>$c=&amp;$a</code>时,按照正常理解$c也会如同$b一样直接指向$a的zval结构体,<br>但现实往往不同,当$c想要指向$a的值时,因为增加引用会使得is_ref变为1,<br>所以使得$b不能直接指向$a的值,也就是说非引用赋值指向同一zval<br>结构时is_ref必须为0,否则会迫使$a的zval值复制一份,然后使得$b指向新复制的值,<br>这时新值<code>refcount=1,is_ref=0</code>,旧值ref<code>count=2,is_ref=1</code>,这就叫写时复制.<br>也就是说当执行第三句时会引起第二句值得复制,这时会引起大内存的浪费,<br>所以写第三句的时候一定要注意!</p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
@@ -103,7 +112,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/BUG使人进步/">BUG使人进步</a><a href="/tags/优雅的nginx/">优雅的nginx</a><a href="/tags/漏洞/">漏洞</a>
+  <span></span> <a href="/tags/浅入浅出PHP/">浅入浅出PHP</a>
   </div>
 
 </div>
@@ -112,7 +121,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://xcar.work/2015/03/02/nginx-param-err-doing-script-hole/" data-title="由于nginx的fastcgi变量解析错误,引起的任意执行php脚本漏洞 | CHENS.WANG" data-tsina="null" class="share clearfix">
+	  <div data-url="http://xcar.work/2014/04/02/php-copy-on-write/" data-title="我理解的php引用计数与写时复制 | CHENS.WANG" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -126,18 +135,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2015/04/27/use-hexo-github-for-mac/" title="use hexo&amp;github for mac">
+ <a href="/2014/06/07/Smart-key/" title="360智键是一种怎样体验">
   <strong>上一篇：</strong><br/>
   <span>
-  use hexo&amp;github for mac</span>
+  360智键是一种怎样体验</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2014/08/02/have-Filter/"  title="是否存在一种安全过滤器">
+<a href="/2014/03/30/think-index/"  title="关于很久以前首页的几点猜想">
  <strong>下一篇：</strong><br/> 
- <span>是否存在一种安全过滤器
+ <span>关于很久以前首页的几点猜想
 </span>
 </a>
 </div>
@@ -152,7 +161,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目錄</strong>
  
- 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#我的初步分析"><span class="toc-number">1.</span> <span class="toc-text">我的初步分析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#我的继续分析"><span class="toc-number">2.</span> <span class="toc-text">我的继续分析</span></a></li></ol>
  
   </div>
 

@@ -4,22 +4,22 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>由于nginx的fastcgi变量解析错误,引起的任意执行php脚本漏洞 | CHENS.WANG</title>
+    <title>关于很久以前首页的几点猜想 | CHENS.WANG</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="CHENS.WANG">
     
 
     
-    <meta name="description" content="不要说话 细细体会">
+    <meta name="description" content="在很早以前大家难道不奇怪为什么首页要单独做一个静态页面，然后需要再点一下才能进去呢？">
 <meta property="og:type" content="article">
-<meta property="og:title" content="由于nginx的fastcgi变量解析错误,引起的任意执行php脚本漏洞">
-<meta property="og:url" content="http://xcar.work/2015/03/02/nginx-param-err-doing-script-hole/index.html">
+<meta property="og:title" content="关于很久以前首页的几点猜想">
+<meta property="og:url" content="http://xcar.work/2014/03/30/think-index/index.html">
 <meta property="og:site_name" content="CHENS.WANG">
-<meta property="og:description" content="不要说话 细细体会">
+<meta property="og:description" content="在很早以前大家难道不奇怪为什么首页要单独做一个静态页面，然后需要再点一下才能进去呢？">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="由于nginx的fastcgi变量解析错误,引起的任意执行php脚本漏洞">
-<meta name="twitter:description" content="不要说话 细细体会">
+<meta name="twitter:title" content="关于很久以前首页的几点猜想">
+<meta name="twitter:description" content="在很早以前大家难道不奇怪为什么首页要单独做一个静态页面，然后需要再点一下才能进去呢？">
 
     
     <link rel="alternative" href="/atom.xml" title="CHENS.WANG" type="application/atom+xml">
@@ -75,14 +75,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/03/02/nginx-param-err-doing-script-hole/" title="由于nginx的fastcgi变量解析错误,引起的任意执行php脚本漏洞" itemprop="url">由于nginx的fastcgi变量解析错误,引起的任意执行php脚本漏洞</a>
+      <a href="/2014/03/30/think-index/" title="关于很久以前首页的几点猜想" itemprop="url">关于很久以前首页的几点猜想</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="CHENS.WANG" target="_blank" itemprop="author">CHENS.WANG</a>
 		
   <p class="article-time">
-    <time datetime="2015-03-02T06:49:50.000Z" itemprop="datePublished"> 發表於 2015-03-02</time>
+    <time datetime="2014-03-30T09:14:11.000Z" itemprop="datePublished"> 發表於 2014-03-30</time>
     
   </p>
 </header>
@@ -91,11 +91,18 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目錄</strong>
 		
-			
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#为什么这么做?"><span class="toc-number">1.</span> <span class="toc-text">为什么这么做?</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#历史遗留问题"><span class="toc-number">1.1.</span> <span class="toc-text">历史遗留问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么其他一些网站还会这么做呢？"><span class="toc-number">1.2.</span> <span class="toc-text">为什么其他一些网站还会这么做呢？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#这样的网站自然不需要排名"><span class="toc-number">1.3.</span> <span class="toc-text">这样的网站自然不需要排名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#过滤机器人用户"><span class="toc-number">1.4.</span> <span class="toc-text">过滤机器人用户</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#后记:"><span class="toc-number">2.</span> <span class="toc-text">后记:</span></a></li></ol>
 		
 		</div>
 		
-		  
+		<p>在很早以前大家难道不奇怪为什么首页要单独做一个静态页面，然后需要再点一下才能进去呢？<br><a id="more"></a></p>
+<h1 id="为什么这么做?">为什么这么做?</h1><p>这么不利于用户体验的事情为什么要这么做呢？<br>我是这么想的：</p>
+<h2 id="历史遗留问题">历史遗留问题</h2><p>  在web刚刚兴起的时候，硬件和软件都远没有想在那么好，技术也没有那么牛，一些大型下载站和门户网站，搞了好多镜像站挂在首页，用来降低每台服务器的负载，延缓用户hits，那时候可没有异步加载，没想到吧这么做的目的还是为了加强用户体验…要是现在一秒钟没点开…因为搜素引型的关系，哼，果断点下一个！想在的话技术牛了，这种方法做首页的话，可以缓冲宝贵的两秒钟时间，用来让后台下载真正首页需要缓存的内容…要知道某些网站你不查不知道，查了才知道他们服务器压力有多大！</p>
+<h2 id="为什么其他一些网站还会这么做呢？">为什么其他一些网站还会这么做呢？</h2><p>  因为这些网站是属于强需求型的，换句话说他不是搜索引型来的流量，而且直接网址过来的，这样在首页设个广告啦，设个公告啦，自然也就没人会一秒钟离开…所以为了增加广告或者说是强调品牌影响力就会做一些事情或者solgon让你记住它！多么好的想法啊！knowone就是这么做的…</p>
+<h2 id="这样的网站自然不需要排名">这样的网站自然不需要排名</h2><p>  起码首页是不需要索引的，甚至反对整站抓取，在首页直接放一个这样的页面，甚至点击以后直接跨域跳转自然也就不利于seo了，当然如果你的网站太出名的话…或者baidu改算法了…</p>
+<h2 id="过滤机器人用户">过滤机器人用户</h2><p>想各种蜘蛛，各种火车头工具，那都算机器人用户，像这种无用或者可用性低的用户起到一定的过滤作用，可以进一步定位目标用户，增强网站转化率。</p>
+<h1 id="后记:">后记:</h1><p>嗯，先写这么多吧，原创的，说起来我一个coder，怎么竟想些产品经理的事情？</p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
@@ -103,7 +110,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/BUG使人进步/">BUG使人进步</a><a href="/tags/优雅的nginx/">优雅的nginx</a><a href="/tags/漏洞/">漏洞</a>
+  <span></span> <a href="/tags/不成熟猜想/">不成熟猜想</a>
   </div>
 
 </div>
@@ -112,7 +119,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://xcar.work/2015/03/02/nginx-param-err-doing-script-hole/" data-title="由于nginx的fastcgi变量解析错误,引起的任意执行php脚本漏洞 | CHENS.WANG" data-tsina="null" class="share clearfix">
+	  <div data-url="http://xcar.work/2014/03/30/think-index/" data-title="关于很久以前首页的几点猜想 | CHENS.WANG" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -126,18 +133,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2015/04/27/use-hexo-github-for-mac/" title="use hexo&amp;github for mac">
+ <a href="/2014/04/02/php-copy-on-write/" title="我理解的php引用计数与写时复制">
   <strong>上一篇：</strong><br/>
   <span>
-  use hexo&amp;github for mac</span>
+  我理解的php引用计数与写时复制</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2014/08/02/have-Filter/"  title="是否存在一种安全过滤器">
+<a href="/2014/03/25/think-easy-php-and-fast-c/"  title="c底层与php的效率">
  <strong>下一篇：</strong><br/> 
- <span>是否存在一种安全过滤器
+ <span>c底层与php的效率
 </span>
 </a>
 </div>
@@ -152,7 +159,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目錄</strong>
  
- 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#为什么这么做?"><span class="toc-number">1.</span> <span class="toc-text">为什么这么做?</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#历史遗留问题"><span class="toc-number">1.1.</span> <span class="toc-text">历史遗留问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么其他一些网站还会这么做呢？"><span class="toc-number">1.2.</span> <span class="toc-text">为什么其他一些网站还会这么做呢？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#这样的网站自然不需要排名"><span class="toc-number">1.3.</span> <span class="toc-text">这样的网站自然不需要排名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#过滤机器人用户"><span class="toc-number">1.4.</span> <span class="toc-text">过滤机器人用户</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#后记:"><span class="toc-number">2.</span> <span class="toc-text">后记:</span></a></li></ol>
  
   </div>
 

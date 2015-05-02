@@ -4,22 +4,22 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>由于nginx的fastcgi变量解析错误,引起的任意执行php脚本漏洞 | CHENS.WANG</title>
+    <title>c底层与php的效率 | CHENS.WANG</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="CHENS.WANG">
     
 
     
-    <meta name="description" content="不要说话 细细体会">
+    <meta name="description" content="想当年，facebook是用php写的…这大家都知道！后来facebook又开发了hiphop，批量的把php转c，其实大家也知道！嗯，phper可算迎来一个世界级用php做主类型语言的网站了，抱大腿有木有，基本上所有讨论php和c的问题都会提及上面的内容！">
 <meta property="og:type" content="article">
-<meta property="og:title" content="由于nginx的fastcgi变量解析错误,引起的任意执行php脚本漏洞">
-<meta property="og:url" content="http://xcar.work/2015/03/02/nginx-param-err-doing-script-hole/index.html">
+<meta property="og:title" content="c底层与php的效率">
+<meta property="og:url" content="http://xcar.work/2014/03/25/think-easy-php-and-fast-c/index.html">
 <meta property="og:site_name" content="CHENS.WANG">
-<meta property="og:description" content="不要说话 细细体会">
+<meta property="og:description" content="想当年，facebook是用php写的…这大家都知道！后来facebook又开发了hiphop，批量的把php转c，其实大家也知道！嗯，phper可算迎来一个世界级用php做主类型语言的网站了，抱大腿有木有，基本上所有讨论php和c的问题都会提及上面的内容！">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="由于nginx的fastcgi变量解析错误,引起的任意执行php脚本漏洞">
-<meta name="twitter:description" content="不要说话 细细体会">
+<meta name="twitter:title" content="c底层与php的效率">
+<meta name="twitter:description" content="想当年，facebook是用php写的…这大家都知道！后来facebook又开发了hiphop，批量的把php转c，其实大家也知道！嗯，phper可算迎来一个世界级用php做主类型语言的网站了，抱大腿有木有，基本上所有讨论php和c的问题都会提及上面的内容！">
 
     
     <link rel="alternative" href="/atom.xml" title="CHENS.WANG" type="application/atom+xml">
@@ -75,14 +75,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/03/02/nginx-param-err-doing-script-hole/" title="由于nginx的fastcgi变量解析错误,引起的任意执行php脚本漏洞" itemprop="url">由于nginx的fastcgi变量解析错误,引起的任意执行php脚本漏洞</a>
+      <a href="/2014/03/25/think-easy-php-and-fast-c/" title="c底层与php的效率" itemprop="url">c底层与php的效率</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="CHENS.WANG" target="_blank" itemprop="author">CHENS.WANG</a>
 		
   <p class="article-time">
-    <time datetime="2015-03-02T06:49:50.000Z" itemprop="datePublished"> 發表於 2015-03-02</time>
+    <time datetime="2014-03-25T13:25:26.000Z" itemprop="datePublished"> 發表於 2014-03-25</time>
     
   </p>
 </header>
@@ -91,11 +91,16 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目錄</strong>
 		
-			
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#高级语言C"><span class="toc-number">1.</span> <span class="toc-text">高级语言C</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#超高级语言和世界上最好的语言PHP"><span class="toc-number">2.</span> <span class="toc-text">超高级语言和世界上最好的语言PHP</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#醒醒吧"><span class="toc-number">3.</span> <span class="toc-text">醒醒吧</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#后记"><span class="toc-number">4.</span> <span class="toc-text">后记</span></a></li></ol>
 		
 		</div>
 		
-		  
+		<p>想当年，facebook是用php写的…这大家都知道！<br>后来facebook又开发了hiphop，批量的把php转c，其实大家也知道！<br>嗯，phper可算迎来一个世界级用php做主类型语言的网站了，抱大腿有木有，基本上所有讨论php和c的问题都会提及上面的内容！<br><a id="more"></a></p>
+<h1 id="高级语言C">高级语言C</h1><p>诚然，php的底层是由c写出来的，zend引擎么，这大家都知道，zend的强大使得php看起来就行是c的开发软件，谈起谁更底层谁是高级语言这种永恒的话题，可能需要追溯到二进制编程了。对了，据说真有牛人是二进制编程的，据说它的键盘只有1和0两个键子，那执行起来效率高的一逼啊，快看，该牛头上还有个发光的圈圈…</p>
+<h1 id="超高级语言和世界上最好的语言PHP">超高级语言和世界上最好的语言PHP</h1><p>软件工程本身是个很矛盾的东西，因为他的最终目的是达到自动编程或者说机器人编程这种feel。<br>用1和0来操纵cpu震荡，用汇编来操纵1和0，用c来操纵汇编，用php来操纵c，大体上php的level是这高级起来的…</p>
+<h1 id="醒醒吧">醒醒吧</h1><p>想想fb成批压缩代码转c是因为php的执行效率底么？fb那是为了降低cpu和内存的使用率，-_-!然后把服务器上省下的钱作为多找两个便宜的吊死php码农罢了！so，一个语言的执行效率永远不是公司方首要考虑的问题，他们首要考虑的是个方面的性能平衡，效益平衡，收支平衡！</p>
+<h1 id="后记">后记</h1><p>不能因为语言简单，然后抢饭碗的人多，价钱下去了，然后自己智商低又学不明白c，就是说php不好的理由吧，亲！<br>另外觉得php简单的根本就称不上程序员吧…</p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
@@ -103,7 +108,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/BUG使人进步/">BUG使人进步</a><a href="/tags/优雅的nginx/">优雅的nginx</a><a href="/tags/漏洞/">漏洞</a>
+  <span></span> <a href="/tags/浅入浅出PHP/">浅入浅出PHP</a>
   </div>
 
 </div>
@@ -112,7 +117,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://xcar.work/2015/03/02/nginx-param-err-doing-script-hole/" data-title="由于nginx的fastcgi变量解析错误,引起的任意执行php脚本漏洞 | CHENS.WANG" data-tsina="null" class="share clearfix">
+	  <div data-url="http://xcar.work/2014/03/25/think-easy-php-and-fast-c/" data-title="c底层与php的效率 | CHENS.WANG" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -126,18 +131,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2015/04/27/use-hexo-github-for-mac/" title="use hexo&amp;github for mac">
+ <a href="/2014/03/30/think-index/" title="关于很久以前首页的几点猜想">
   <strong>上一篇：</strong><br/>
   <span>
-  use hexo&amp;github for mac</span>
+  关于很久以前首页的几点猜想</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2014/08/02/have-Filter/"  title="是否存在一种安全过滤器">
+<a href="/2014/03/16/new-plaything-with-jawbone-up2/"  title="新玩具,jawbone up2 智能手环">
  <strong>下一篇：</strong><br/> 
- <span>是否存在一种安全过滤器
+ <span>新玩具,jawbone up2 智能手环
 </span>
 </a>
 </div>
@@ -152,7 +157,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目錄</strong>
  
- 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#高级语言C"><span class="toc-number">1.</span> <span class="toc-text">高级语言C</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#超高级语言和世界上最好的语言PHP"><span class="toc-number">2.</span> <span class="toc-text">超高级语言和世界上最好的语言PHP</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#醒醒吧"><span class="toc-number">3.</span> <span class="toc-text">醒醒吧</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#后记"><span class="toc-number">4.</span> <span class="toc-text">后记</span></a></li></ol>
  
   </div>
 
