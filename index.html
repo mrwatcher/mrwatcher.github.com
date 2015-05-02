@@ -241,6 +241,62 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2015/01/02/php-magic-set-and-php-over-load/" title="从__get和__set来说php的重写与重载" itemprop="url">从__get和__set来说php的重写与重载</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="CHENS.WANG" target="_blank" itemprop="author">CHENS.WANG</a>
+		
+  <p class="article-time">
+    <time datetime="2015-01-02T07:52:59.000Z" itemprop="datePublished"> 發表於 2015-01-02</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>因为php为弱类型语言,参数或变量没有类型约束概念,由底层zval结构统一处理，<br>所以php中重载其实就是重写，重写其实就是修改的意思。<br>每一次赋值或调用或销毁都意为着修改,<br><strong>get和</strong>set魔术方法正是干着给类中不可访问属性(作用域限制)赋值和调用的事儿！<br>如果子类与父类私有属性重名,不会发生重写现象,<br>因为作用域不同私有属性作用域只在自身类中,<br>而受保护和共有的作用域包括其子类,<br>这样当外部访问子类重名私有属性时,<br>会调用继承自父类的<strong>get()方法,<br>而父类的</strong>get方法却返回父类的重名私有属性,<br>因为return $this指的是当前调用者本身,<br>当前调用者也就是父类,<br>so…并未发生作用域改变,<br>一切顺理成章.</p>
+<h1 id="后记:">后记:</h1><p>其实如果子类重写方法的参数和基类不一样，只要给参数个默认值，使得编译器认为参数可以为空，保持重写方法与基类方法的函数签名相同就可以了。所以说php的重写就是覆盖原有的,而重载是unset(原先的),def 新的.</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/浅入浅出PHP/">浅入浅出PHP</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2014/08/02/have-Filter/" title="是否存在一种安全过滤器" itemprop="url">是否存在一种安全过滤器</a>
   </h1>
   <p class="article-author">By
@@ -572,62 +628,6 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2014/03/30/think-index/" title="关于很久以前首页的几点猜想" itemprop="url">关于很久以前首页的几点猜想</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="CHENS.WANG" target="_blank" itemprop="author">CHENS.WANG</a>
-		
-  <p class="article-time">
-    <time datetime="2014-03-30T09:14:11.000Z" itemprop="datePublished"> 發表於 2014-03-30</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>在很早以前大家难道不奇怪为什么首页要单独做一个静态页面，然后需要再点一下才能进去呢？<br>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2014/03/30/think-index/#more">Read More</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/不成熟猜想/">不成熟猜想</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
@@ -648,7 +648,7 @@
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/浅入浅出PHP/" title="浅入浅出PHP">浅入浅出PHP<sup>4</sup></a></li>
+				<li><a href="/tags/浅入浅出PHP/" title="浅入浅出PHP">浅入浅出PHP<sup>5</sup></a></li>
 			
 		
 			
