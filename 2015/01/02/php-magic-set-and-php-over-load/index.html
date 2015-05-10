@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>从__get和__set来说php的重写与重载 | CHENS.WANG</title>
+    <title>从__get和__set来说php的重写与重载 | CHENS.WANG&#39;S BLOG</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="CHENS.WANG">
@@ -15,14 +15,14 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="从__get和__set来说php的重写与重载">
 <meta property="og:url" content="http://xcar.work/2015/01/02/php-magic-set-and-php-over-load/index.html">
-<meta property="og:site_name" content="CHENS.WANG">
+<meta property="og:site_name" content="CHENS.WANG'S BLOG">
 <meta property="og:description" content="因为php为弱类型语言,参数或变量没有类型约束概念,由底层zval结构统一处理，所以php中重载其实就是重写，重写其实就是修改的意思。每一次赋值或调用或销毁都意为着修改,get和set魔术方法正是干着给类中不可访问属性(作用域限制)赋值和调用的事儿！如果子类与父类私有属性重名,不会发生重写现象,因为作用域不同私有属性作用域只在自身类中,而受保护和共有的作用域包括其子类,这样当外部访问子类重名私有属">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从__get和__set来说php的重写与重载">
 <meta name="twitter:description" content="因为php为弱类型语言,参数或变量没有类型约束概念,由底层zval结构统一处理，所以php中重载其实就是重写，重写其实就是修改的意思。每一次赋值或调用或销毁都意为着修改,get和set魔术方法正是干着给类中不可访问属性(作用域限制)赋值和调用的事儿！如果子类与父类私有属性重名,不会发生重写现象,因为作用域不同私有属性作用域只在自身类中,而受保护和共有的作用域包括其子类,这样当外部访问子类重名私有属">
 
     
-    <link rel="alternative" href="/atom.xml" title="CHENS.WANG" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="CHENS.WANG&#39;S BLOG" type="application/atom+xml">
     
     
     <link rel="icon" href="/img/favicon.ico">
@@ -40,12 +40,12 @@
 <div>
 		
 			<div id="imglogo">
-				<a href="/"><img src="/img/logo.png" alt="CHENS.WANG" title="CHENS.WANG"/></a>
+				<a href="/"><img src="/img/logo.png" alt="CHENS.WANG&#39;S BLOG" title="CHENS.WANG&#39;S BLOG"/></a>
 			</div>
 			
 			<div id="textlogo">
-				<h1 class="site-name"><a href="/" title="CHENS.WANG">CHENS.WANG</a></h1>
-				<h2 class="blog-motto">Chens.wang‘s Blog</h2>
+				<h1 class="site-name"><a href="/" title="CHENS.WANG&#39;S BLOG">CHENS.WANG&#39;S BLOG</a></h1>
+				<h2 class="blog-motto">不要说话 细细体会 静静学习</h2>
 			</div>
 			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
 			</a></div>
@@ -114,7 +114,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://xcar.work/2015/01/02/php-magic-set-and-php-over-load/" data-title="从__get和__set来说php的重写与重载 | CHENS.WANG" data-tsina="null" class="share clearfix">
+	  <div data-url="http://xcar.work/2015/01/02/php-magic-set-and-php-over-load/" data-title="从__get和__set来说php的重写与重载 | CHENS.WANG&#39;S BLOG" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -219,6 +219,12 @@
         
           <li>
             
+            	<a href="http://xcar.com.cn" target="_blank" title="爱卡汽车">爱卡汽车</a>
+            
+          </li>
+        
+          <li>
+            
             	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
             
           </li>
@@ -245,7 +251,7 @@
 	
 	
 	<section class="info">
-		<p> Hello ,I&#39;m Larry Page in Google. <br/>
+		<p> Hello ,I&#39;m Larry Page in github. <br/>
 			This is my blog,believe it or not.</p>
 	</section>
 	 
@@ -307,6 +313,11 @@ $(document).ready(function(){
   $(window).scroll(function(){
     o.css("top",Math.max(80,260-$(this).scrollTop()));
   });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
   
   $(window).resize(function(){
     getSize(); 
