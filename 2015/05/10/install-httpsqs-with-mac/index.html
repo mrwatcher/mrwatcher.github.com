@@ -4,22 +4,22 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>对于if中变量后置想说的东西 | CHENS.WANG&#39;S BLOG</title>
+    <title>install httpsqs with mac | CHENS.WANG&#39;S BLOG</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="CHENS.WANG">
     
 
     
-    <meta name="description" content="今天碰到一个bug是关于if判断容易疏漏的点！">
+    <meta name="description" content="THIS IS CHENS.WANG&apos;S BLOG">
 <meta property="og:type" content="article">
-<meta property="og:title" content="对于if中变量后置想说的东西">
-<meta property="og:url" content="http://chens.wang/2014/06/10/at-last-with-sometime-in-if/index.html">
+<meta property="og:title" content="install httpsqs with mac">
+<meta property="og:url" content="http://chens.wang/2015/05/10/install-httpsqs-with-mac/index.html">
 <meta property="og:site_name" content="CHENS.WANG'S BLOG">
-<meta property="og:description" content="今天碰到一个bug是关于if判断容易疏漏的点！">
+<meta property="og:description" content="THIS IS CHENS.WANG&apos;S BLOG">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="对于if中变量后置想说的东西">
-<meta name="twitter:description" content="今天碰到一个bug是关于if判断容易疏漏的点！">
+<meta name="twitter:title" content="install httpsqs with mac">
+<meta name="twitter:description" content="THIS IS CHENS.WANG&apos;S BLOG">
 
     
     <link rel="alternative" href="/atom.xml" title="CHENS.WANG&#39;S BLOG" type="application/atom+xml">
@@ -75,14 +75,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/06/10/at-last-with-sometime-in-if/" title="对于if中变量后置想说的东西" itemprop="url">对于if中变量后置想说的东西</a>
+      <a href="/2015/05/10/install-httpsqs-with-mac/" title="install httpsqs with mac" itemprop="url">install httpsqs with mac</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="CHENS.WANG" target="_blank" itemprop="author">CHENS.WANG</a>
 		
   <p class="article-time">
-    <time datetime="2014-06-10T15:20:54.000Z" itemprop="datePublished"> 發表於 2014-06-10</time>
+    <time datetime="2015-05-10T12:54:16.000Z" itemprop="datePublished"> 發表於 2015-05-10</time>
     
   </p>
 </header>
@@ -91,27 +91,15 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目錄</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#所以最后输出的结果是13；"><span class="toc-number">1.</span> <span class="toc-text">所以最后输出的结果是13；</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#后记:"><span class="toc-number"></span> <span class="toc-text">后记:</span></a>
+			
 		
 		</div>
 		
-		<p>今天碰到一个bug是关于if判断容易疏漏的点！<br><a id="more"></a><br>是这个样子的：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$a</span> = <span class="number">1</span>;</span><br><span class="line"><span class="variable">$b</span> = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">if</span>(<span class="variable">$a</span>=<span class="number">3</span> || <span class="variable">$b</span>=<span class="number">4</span>)&#123;</span><br><span class="line">  <span class="variable">$a</span>++;</span><br><span class="line">  <span class="variable">$b</span>++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$a</span>.<span class="variable">$b</span>;</span><br></pre></td></tr></table></figure></p>
-<hr>
-<p>你猜，最后输出的竟然是13你猜问什么?<br>最后是用<code>var_dump()</code>大法才发现的！<br><code>var_dump(2 || 3);</code>的结果是<code>true;</code><br>这时才发现if这里<code>if($a=3 || $b=4)</code>就相当于<code>if( $a = (3 || $b=4) )</code>,<br>也就是说$a被赋值为true，且$b当作字符串处理！</p>
-<h2 id="所以最后输出的结果是13；">所以最后输出的结果是13；</h2><h1 id="后记:">后记:</h1><ol>
-<li><em>这件事充分的告诉了我这么写<code>if(1 == $a)</code>的必要性，否则死循环就不美好了!</em></li>
-<li><code>(3 || )</code>被隐式转换为boolen了！</li>
-</ol>
-  
+		  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/BUG使人进步/">BUG使人进步</a>
-  </div>
 
 </div>
 
@@ -119,7 +107,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://chens.wang/2014/06/10/at-last-with-sometime-in-if/" data-title="对于if中变量后置想说的东西 | CHENS.WANG&#39;S BLOG" data-tsina="null" class="share clearfix">
+	  <div data-url="http://chens.wang/2015/05/10/install-httpsqs-with-mac/" data-title="install httpsqs with mac | CHENS.WANG&#39;S BLOG" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -133,18 +121,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2014/06/14/how-to-defined/" title="如何定义一个常量">
+ <a href="/2015/05/10/how-to-markdown/" title="markdown怎么使用?">
   <strong>上一篇：</strong><br/>
   <span>
-  如何定义一个常量</span>
+  markdown怎么使用?</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2014/06/07/Smart-key/"  title="360智键是一种怎样体验">
+<a href="/2015/05/02/php5-2-rushhash/"  title="php5.2-利用array降维攻击">
  <strong>下一篇：</strong><br/> 
- <span>360智键是一种怎样体验
+ <span>php5.2-利用array降维攻击
 </span>
 </a>
 </div>
@@ -159,7 +147,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目錄</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#所以最后输出的结果是13；"><span class="toc-number">1.</span> <span class="toc-text">所以最后输出的结果是13；</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#后记:"><span class="toc-number"></span> <span class="toc-text">后记:</span></a>
+ 
  
   </div>
 
