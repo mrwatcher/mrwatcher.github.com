@@ -11,15 +11,15 @@
     
 
     
-    <meta name="description" content="THIS IS CHENS.WANG&apos;S BLOG">
+    <meta name="description" content="本篇简单介绍了如何在mac上与brew结合安装张宴httpsqs队列.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="install httpsqs with mac">
 <meta property="og:url" content="http://chens.wang/2015/05/10/install-httpsqs-with-mac/index.html">
 <meta property="og:site_name" content="CHENS.WANG'S BLOG">
-<meta property="og:description" content="THIS IS CHENS.WANG&apos;S BLOG">
+<meta property="og:description" content="本篇简单介绍了如何在mac上与brew结合安装张宴httpsqs队列.">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="install httpsqs with mac">
-<meta name="twitter:description" content="THIS IS CHENS.WANG&apos;S BLOG">
+<meta name="twitter:description" content="本篇简单介绍了如何在mac上与brew结合安装张宴httpsqs队列.">
 
     
     <link rel="alternative" href="/atom.xml" title="CHENS.WANG&#39;S BLOG" type="application/atom+xml">
@@ -91,15 +91,37 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#httpsqs是什么"><span class="toc-number">1.</span> <span class="toc-text">httpsqs是什么</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#队列是什么？"><span class="toc-number">1.1.</span> <span class="toc-text">队列是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tokyo_Cabinet是什么？"><span class="toc-number">1.2.</span> <span class="toc-text">Tokyo Cabinet是什么？</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装所需依赖"><span class="toc-number">2.</span> <span class="toc-text">安装所需依赖</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#编译安装httpsqs"><span class="toc-number">3.</span> <span class="toc-text">编译安装httpsqs</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#后记:"><span class="toc-number">4.</span> <span class="toc-text">后记:</span></a></li></ol>
 		
 		</div>
 		
-		  
+		<p>  本篇简单介绍了如何在mac上与brew结合安装张宴httpsqs队列.<br><a id="more"></a></p>
+<h1 id="httpsqs是什么">httpsqs是什么</h1><p>  <a href="http://zyan.cc/category/13/" target="_blank" rel="external">HTTPSQS（HTTP Simple Queue Service）是一款基于 HTTP GET/POST 协议的轻量级开源简单消息队列服务，使用 Tokyo Cabinet 的 B+Tree Key/Value 数据库来做数据的持久化存储.</a>.</p>
+<h2 id="队列是什么？">队列是什么？</h2><p>  简单来说就是排队排出的一个长列.最大特性就是需要排队,一个一个来,入入出出总是对立的两个端.不解释了,都懂!</p>
+<h2 id="Tokyo_Cabinet是什么？">Tokyo Cabinet是什么？</h2><p>  Tokyo Cabinet是一个DBM数据库,简称TC,可以理解为服务端.他的客户端叫做tokyotyrant,简称TT,DBM数据库指的就是带索引的数据库,TC使用B+Tree担当索引,以文本形式做磁盘存储.</p>
+<h1 id="安装所需依赖">安装所需依赖</h1><ol>
+<li>libevent 这是php的异步轮训扩展 直接<code>sudo brew install php53-libevent</code></li>
+<li><p>Tokyo Cabinet 直接<code>sudo brew install php53-Tokyo Cabinet</code>(我用的php5.3)</p>
+<h1 id="编译安装httpsqs">编译安装httpsqs</h1><p>由于mac的brew,相信很多人之前可能已经安装了brew的libevent甚至TC了,当编译httpsqs源文件的时候发现,httpsqs默认去寻找源码安装的libevent去了.这时候加软连接或者重新安装libevent来解决都不怎么样.</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//默认地址</span></span><br><span class="line">CFLAGS=-Wl,-rpath,<span class="regexp">/usr/</span>local<span class="regexp">/libevent-2.0.12-stable/</span>lib<span class="regexp">/:/u</span>sr<span class="regexp">/local/</span>tokyocabinet-<span class="number">1.4</span>.<span class="number">47</span><span class="regexp">/lib/</span> -L<span class="regexp">/usr/</span>local<span class="regexp">/libevent-2.0.12-stable/</span>lib<span class="regexp">/ -levent -L/u</span>sr<span class="regexp">/local/</span>tokyocabinet-<span class="number">1.4</span>.<span class="number">47</span><span class="regexp">/lib/</span> -ltokyocabinet -I<span class="regexp">/usr/</span>local<span class="regexp">/libevent-2.0.12-stable/i</span>nclude<span class="regexp">/ -I/u</span>sr<span class="regexp">/local/</span>tokyocabinet-<span class="number">1.4</span>.<span class="number">47</span><span class="regexp">/include/</span> -lz -lbz2 -lrt -lpthread -lm -lc -O2 -g</span><br></pre></td></tr></table></figure>
+<p>手动将相关地址改成brew安装的libevent地址和tokyocabinet地址即可.<br>编译的时候即时动态加载lib也许还会发生缺少某个lib的情况,这时候看少那个就把那个去掉看是否能编译成功.我是去掉了<strong>-lrt</strong>才编译成功的!</p>
+</li>
+</ol>
+<p>安装完成后<code>httpsqs -h</code>成功提示,无报错,即为安装成功!</p>
+<h1 id="后记:">后记:</h1><ol>
+<li>tt已经停止更新</li>
+<li>httpsqs+tt 很早的东西,这种方案感觉已经过时了.</li>
+</ol>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/浅入浅出PHP/">浅入浅出PHP</a>
+  </div>
 
 </div>
 
@@ -147,7 +169,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#httpsqs是什么"><span class="toc-number">1.</span> <span class="toc-text">httpsqs是什么</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#队列是什么？"><span class="toc-number">1.1.</span> <span class="toc-text">队列是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tokyo_Cabinet是什么？"><span class="toc-number">1.2.</span> <span class="toc-text">Tokyo Cabinet是什么？</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装所需依赖"><span class="toc-number">2.</span> <span class="toc-text">安装所需依赖</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#编译安装httpsqs"><span class="toc-number">3.</span> <span class="toc-text">编译安装httpsqs</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#后记:"><span class="toc-number">4.</span> <span class="toc-text">后记:</span></a></li></ol>
  
   </div>
 
@@ -163,7 +185,7 @@
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/浅入浅出PHP/" title="浅入浅出PHP">浅入浅出PHP<sup>5</sup></a></li>
+				<li><a href="/tags/浅入浅出PHP/" title="浅入浅出PHP">浅入浅出PHP<sup>6</sup></a></li>
 			
 		
 			
