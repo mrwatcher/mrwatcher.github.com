@@ -1,0 +1,462 @@
+
+ <!DOCTYPE HTML>
+<html lang="ZH-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>听鸟哥关于性能优化的乱弹 | CHENS.WANG&#39;S BLOG</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="CHENS.WANG">
+    
+
+    
+    <meta name="description" content="duang!星期六在链家听鸟哥关于性能优化乱弹的观后感.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="听鸟哥关于性能优化的乱弹">
+<meta property="og:url" content="http://chens.wang/2015/05/17/laruence-share-preformance/index.html">
+<meta property="og:site_name" content="CHENS.WANG'S BLOG">
+<meta property="og:description" content="duang!星期六在链家听鸟哥关于性能优化乱弹的观后感.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="听鸟哥关于性能优化的乱弹">
+<meta name="twitter:description" content="duang!星期六在链家听鸟哥关于性能优化乱弹的观后感.">
+
+    
+    <link rel="alternative" href="/atom.xml" title="CHENS.WANG&#39;S BLOG" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="CHENS.WANG&#39;S BLOG" title="CHENS.WANG&#39;S BLOG"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="CHENS.WANG&#39;S BLOG">CHENS.WANG&#39;S BLOG</a></h1>
+				<h2 class="blog-motto">不要说话 细细体会 静静学习</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:chens.wang">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/05/17/laruence-share-preformance/" title="听鸟哥关于性能优化的乱弹" itemprop="url">听鸟哥关于性能优化的乱弹</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="CHENS.WANG" target="_blank" itemprop="author">CHENS.WANG</a>
+		
+  <p class="article-time">
+    <time datetime="2015-05-17T12:04:24.000Z" itemprop="datePublished"> 發表於 2015-05-17</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#谁是鸟哥?"><span class="toc-number">1.</span> <span class="toc-text">谁是鸟哥?</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#为什么性能很是重要?"><span class="toc-number">2.</span> <span class="toc-text">为什么性能很是重要?</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#项目中的性能问题"><span class="toc-number">3.</span> <span class="toc-text">项目中的性能问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#所有微优化都是邪恶的!"><span class="toc-number">4.</span> <span class="toc-text">所有微优化都是邪恶的!</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么叫微优化?"><span class="toc-number">4.1.</span> <span class="toc-text">什么叫微优化?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么邪恶?"><span class="toc-number">4.2.</span> <span class="toc-text">为什么邪恶?</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#行乎?止乎?"><span class="toc-number">5.</span> <span class="toc-text">行乎?止乎?</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#一揽子调优计划?"><span class="toc-number">6.</span> <span class="toc-text">一揽子调优计划?</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#使用系统发现性能问题的必要性"><span class="toc-number">7.</span> <span class="toc-text">使用系统发现性能问题的必要性</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#APM可视化"><span class="toc-number">7.1.</span> <span class="toc-text">APM可视化</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#后记:"><span class="toc-number">8.</span> <span class="toc-text">后记:</span></a></li></ol>
+		
+		</div>
+		
+		<p>duang!星期六在链家听鸟哥关于性能优化乱弹的观后感.<br><a id="more"></a></p>
+<h1 id="谁是鸟哥?">谁是鸟哥?</h1><p> 鸟哥laruence,惠新宸,劳伦斯鸟,用PHP的人中认为的亚洲第一好的程序员.</p>
+<ol>
+<li>PHP7的首要开发者.</li>
+<li>yaf,yac,yar,lua(php)的作者.</li>
+<li>新浪微博首席架构师.</li>
+<li>等等…</li>
+</ol>
+<h1 id="为什么性能很是重要?">为什么性能很是重要?</h1><p>  为什么说一个系统或者一个程序的性能很重要,一个最重要的原因是性能与占用系统资源成正比,而系统资源与钱成正比,所以性能越好的系统或程序越省钱.<br>  那么省钱对谁来说最重要?对老板boss最重要!<br>  老板的想法是,假如程序慢了,造成用户体验不好了…加服务器就够了…<br>  假如1台服务器1年成本1w元,1000台服务器1年成本就是1000w元,由于对程序性能的优化将1000台服务器缩容至500台,那么每年可以省掉500w元.想想也是醉了…</p>
+<h1 id="项目中的性能问题">项目中的性能问题</h1><p>  对相关问题进行优化以提高起性能.这个优化往往是相对的,比如一家小公司就2台服务器.遇到某些性能瓶颈,浪费时间去排查问题,去调试还不如加一台服务器呢.所以他们有性能问题吗？没有…<br>  项目中的性能问题就是空间与时间成本的问题,就是这两个的博弈,往往在中型以上的互联网公司才会遇到这种IT成本问题.</p>
+<h1 id="所有微优化都是邪恶的!">所有微优化都是邪恶的!</h1><h2 id="什么叫微优化?">什么叫微优化?</h2><p>  微优化就是对项目对业务不了解的情况下,自以为事的对某一点进行所谓的优化.这种黑盒有优化,实际上出错率很大,代价也很大…</p>
+<h2 id="为什么邪恶?">为什么邪恶?</h2><p>  xx:”我就改了一行代码…怎么就出问题了?”.<br>  oo:”废话,你改的是连库方式…”.<br>  以上问答很邪恶,所以说单单对某一点进行的优化,往往是conf级别的,这种优化在没有确凿的理论依据,没有对应当前场景的情况下,牵一发而动全身.动全身的代价就是一旦出错就是不可恢复的,灾难性的.后果很可怕.<br>  所以说优化一定是基于一定场景的,其他场景想要使用,往往非但是助力,很可能是毒药,想要通用很难!<br>  优化,都是在取舍之间进行的.某一方面的优越,总是伴随着另一方面的伤害,所以它天生邪恶!</p>
+<h1 id="行乎?止乎?">行乎?止乎?</h1><p>  优化到什么程度为止?量化的10%,20%,30%?还是KPI是怎么写的就怎么完成?<br>  优化往往不是一个人的事情,甚至不是某个小组的事情.应该是一个公司整体去思考的一件事情.千万不要闹出,”偶~这部分东西拿到你们组去维护,不要放到我们这里”…然后我这边的整体性能就提高了BUG就少了这种笑话.但是对于大点的公司,这是笑话么?<br>  对于一个从未优化的系统,肯定有很大的优化空间.你可能改一个连接方式,改一个超时时间,上一个opcache,就会带来大幅度的优化.所以改了5行代码,这个月就完事了?<br>  在一个就是”大家都是造轮子,我造的轮子最圆”!一个东西对于性能有提升貌似很流行,但是我完全没接触过,怎么办?要不要试一下?好吧,很有技术情怀…中间死去活来的学…甚至不爽,最后自己实现了一个更好的,用上了…不错,很有成就感,自身也提高了.1年后离职了…后来的小菜逼根本无法接盘.囧!<br>  再一个事情就是一个公司很难保证每个码农都是优秀的,写的代码都具有相应的意识都是高级的优雅的.当然不可能,要不怎么会你拿得多他拿的少?<br>  综上所说,一般公司要有一个总体的优化方案,总体的思路,保证上游的可控…下游才能灵活顺畅.</p>
+<h1 id="一揽子调优计划?">一揽子调优计划?</h1><p>  总想搞出一个大大的优化是行不通的,通用优化方案是很难的,优化往往是对某一场景进行优化,也行下一个场景就不实行了,因为什么?也许因为业务逻辑变了,所以说最有效的优化方案就是对业务逻辑的优化.通过捋顺业务逻辑,对其优化,例如本来需要10个接口东西,最后捋顺后发现可以变成1个接口搞定.无疑,这种优化比花费大量时间去分析调优系统要甜的多,也许闷头苦干两个月对于某一场景进行优化,完事以后发现需求改了…!所以说更懂业务逻辑的底层码农对公司来说更有使用价值!</p>
+<h1 id="使用系统发现性能问题的必要性">使用系统发现性能问题的必要性</h1><p>  如何使用某种系统发现性能问题?这种系统一定是监控性的.</p>
+<h2 id="APM可视化">APM可视化</h2><p>  由于是ting云的专场,鸟哥也配合似得扣题到了APM上面.<br>  最牛逼的运维就是可视化…可视化的结果就是谁都能看.<br>  对于系统服务器的监控例如程序连接数啊,可以交给运维,因为这只是宏观反应问题.<br>  定位问题所在,对于应用程序的监控一定要控制在码农手里.哪里报错了,那块业务由于访问量高了带来了IT运维上的变化了,定位问题,相应调优都要通过APM来监控进行宏观展示.</p>
+<h1 id="后记:">后记:</h1><ol>
+<li>鸟哥演讲已经达至化境.PPT很国际,牛逼吹的很随意…</li>
+<li>听了不能白听,还是要写下来点东西的.</li>
+<li>往往性能问题不是我这种级别的能考虑的,但是以后呢?</li>
+<li>菜鸟写的东西,不要笑…</li>
+<li>记性都是犯错中找出来的.</li>
+</ol>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/浅入浅出PHP/">浅入浅出PHP</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://chens.wang/2015/05/17/laruence-share-preformance/" data-title="听鸟哥关于性能优化的乱弹 | CHENS.WANG&#39;S BLOG" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2015/05/14/warming-web-cache-in-mb/"  title="浏览器个性化缓存对管理型web后台的伤害">
+ <strong>下一篇：</strong><br/> 
+ <span>浏览器个性化缓存对管理型web后台的伤害
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#谁是鸟哥?"><span class="toc-number">1.</span> <span class="toc-text">谁是鸟哥?</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#为什么性能很是重要?"><span class="toc-number">2.</span> <span class="toc-text">为什么性能很是重要?</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#项目中的性能问题"><span class="toc-number">3.</span> <span class="toc-text">项目中的性能问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#所有微优化都是邪恶的!"><span class="toc-number">4.</span> <span class="toc-text">所有微优化都是邪恶的!</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么叫微优化?"><span class="toc-number">4.1.</span> <span class="toc-text">什么叫微优化?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么邪恶?"><span class="toc-number">4.2.</span> <span class="toc-text">为什么邪恶?</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#行乎?止乎?"><span class="toc-number">5.</span> <span class="toc-text">行乎?止乎?</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#一揽子调优计划?"><span class="toc-number">6.</span> <span class="toc-text">一揽子调优计划?</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#使用系统发现性能问题的必要性"><span class="toc-number">7.</span> <span class="toc-text">使用系统发现性能问题的必要性</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#APM可视化"><span class="toc-number">7.1.</span> <span class="toc-text">APM可视化</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#后记:"><span class="toc-number">8.</span> <span class="toc-text">后记:</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/浅入浅出PHP/" title="浅入浅出PHP">浅入浅出PHP<sup>8</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/BUG使人进步/" title="BUG使人进步">BUG使人进步<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hexo/" title="hexo">hexo<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/github/" title="github">github<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/不成熟猜想/" title="不成熟猜想">不成熟猜想<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/情怀/" title="情怀">情怀<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/玩具体验/" title="玩具体验">玩具体验<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/深夜随想/" title="深夜随想">深夜随想<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/诗和远方/" title="诗和远方">诗和远方<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://xcar.com.cn" target="_blank" title="爱卡汽车">爱卡汽车</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Larry Page in github. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="/about" target="_blank" title="CHENS.WANG">CHENS.WANG</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
