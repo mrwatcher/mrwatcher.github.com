@@ -4,22 +4,22 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>浏览器个性化缓存对管理型web后台的伤害 | CHENS.WANG&#39;S BLOG</title>
+    <title>对管理型后台数据操作安全的思考 | CHENS.WANG&#39;S BLOG</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="CHENS.WANG">
     
 
     
-    <meta name="description" content="众所周知,由于各家厂商提供的多种个性化浏览器,使得web开发难度直线上升.对于管理型后台往往伴随着大量的删除和更新操作,与多家“浏览器”的“优化”糅合在一起,使得相关开发需要思考的更多,保证每次操作的数据的准确与安全变得十分重要!">
+    <meta name="description" content="对于管理型后台往往伴随着大量的删除和更新操作,与多家“浏览器”的“优化”糅合在一起,使得相关开发需要思考的更多,保证每次操作的数据的准确与安全变得十分重要!">
 <meta property="og:type" content="article">
-<meta property="og:title" content="浏览器个性化缓存对管理型web后台的伤害">
-<meta property="og:url" content="http://chens.wang/2015/05/14/warming-web-cache-in-mb/index.html">
+<meta property="og:title" content="对管理型后台数据操作安全的思考">
+<meta property="og:url" content="http://chens.wang/2015/05/14/think-in-do-safe-mangerweb/index.html">
 <meta property="og:site_name" content="CHENS.WANG'S BLOG">
-<meta property="og:description" content="众所周知,由于各家厂商提供的多种个性化浏览器,使得web开发难度直线上升.对于管理型后台往往伴随着大量的删除和更新操作,与多家“浏览器”的“优化”糅合在一起,使得相关开发需要思考的更多,保证每次操作的数据的准确与安全变得十分重要!">
+<meta property="og:description" content="对于管理型后台往往伴随着大量的删除和更新操作,与多家“浏览器”的“优化”糅合在一起,使得相关开发需要思考的更多,保证每次操作的数据的准确与安全变得十分重要!">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="浏览器个性化缓存对管理型web后台的伤害">
-<meta name="twitter:description" content="众所周知,由于各家厂商提供的多种个性化浏览器,使得web开发难度直线上升.对于管理型后台往往伴随着大量的删除和更新操作,与多家“浏览器”的“优化”糅合在一起,使得相关开发需要思考的更多,保证每次操作的数据的准确与安全变得十分重要!">
+<meta name="twitter:title" content="对管理型后台数据操作安全的思考">
+<meta name="twitter:description" content="对于管理型后台往往伴随着大量的删除和更新操作,与多家“浏览器”的“优化”糅合在一起,使得相关开发需要思考的更多,保证每次操作的数据的准确与安全变得十分重要!">
 
     
     <link rel="alternative" href="/atom.xml" title="CHENS.WANG&#39;S BLOG" type="application/atom+xml">
@@ -75,7 +75,7 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/05/14/warming-web-cache-in-mb/" title="浏览器个性化缓存对管理型web后台的伤害" itemprop="url">浏览器个性化缓存对管理型web后台的伤害</a>
+      <a href="/2015/05/14/think-in-do-safe-mangerweb/" title="对管理型后台数据操作安全的思考" itemprop="url">对管理型后台数据操作安全的思考</a>
   </h1>
   <p class="article-author">By
        
@@ -91,12 +91,12 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目錄</strong>
 		
-			
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#给大多数人用的天生都不安全"><span class="toc-number">1.</span> <span class="toc-text">给大多数人用的天生都不安全</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常常发生的越权现象"><span class="toc-number">2.</span> <span class="toc-text">常常发生的越权现象</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#会话问题"><span class="toc-number">3.</span> <span class="toc-text">会话问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#log记录"><span class="toc-number">4.</span> <span class="toc-text">log记录</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#正确面对不应该发生的事情发生了！"><span class="toc-number">5.</span> <span class="toc-text">正确面对不应该发生的事情发生了！</span></a></li></ol>
 		
 		</div>
 		
-		<p>众所周知,由于各家厂商提供的多种个性化浏览器,使得web开发难度直线上升.对于管理型后台往往伴随着大量的删除和更新操作,与多家“浏览器”的“优化”糅合在一起,使得相关开发需要思考的更多,保证每次操作的数据的准确与安全变得十分重要!<br><a id="more"></a></p>
-  
+		<p>  对于管理型后台往往伴随着大量的删除和更新操作,与多家“浏览器”的“优化”糅合在一起,使得相关开发需要思考的更多,保证每次操作的数据的准确与安全变得十分重要!<br><a id="more"></a></p>
+<h1 id="给大多数人用的天生都不安全">给大多数人用的天生都不安全</h1><h1 id="常常发生的越权现象">常常发生的越权现象</h1><h1 id="会话问题">会话问题</h1><h1 id="log记录">log记录</h1><h1 id="正确面对不应该发生的事情发生了！">正确面对不应该发生的事情发生了！</h1>  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
@@ -113,7 +113,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://chens.wang/2015/05/14/warming-web-cache-in-mb/" data-title="浏览器个性化缓存对管理型web后台的伤害 | CHENS.WANG&#39;S BLOG" data-tsina="null" class="share clearfix">
+	  <div data-url="http://chens.wang/2015/05/14/think-in-do-safe-mangerweb/" data-title="对管理型后台数据操作安全的思考 | CHENS.WANG&#39;S BLOG" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -153,7 +153,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目錄</strong>
  
- 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#给大多数人用的天生都不安全"><span class="toc-number">1.</span> <span class="toc-text">给大多数人用的天生都不安全</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常常发生的越权现象"><span class="toc-number">2.</span> <span class="toc-text">常常发生的越权现象</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#会话问题"><span class="toc-number">3.</span> <span class="toc-text">会话问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#log记录"><span class="toc-number">4.</span> <span class="toc-text">log记录</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#正确面对不应该发生的事情发生了！"><span class="toc-number">5.</span> <span class="toc-text">正确面对不应该发生的事情发生了！</span></a></li></ol>
  
   </div>
 
