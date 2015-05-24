@@ -91,12 +91,26 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目錄</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#给大多数人用的天生都不安全"><span class="toc-number">1.</span> <span class="toc-text">给大多数人用的天生都不安全</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常常发生的越权现象"><span class="toc-number">2.</span> <span class="toc-text">常常发生的越权现象</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#会话问题"><span class="toc-number">3.</span> <span class="toc-text">会话问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#log记录"><span class="toc-number">4.</span> <span class="toc-text">log记录</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#正确面对不应该发生的事情发生了！"><span class="toc-number">5.</span> <span class="toc-text">正确面对不应该发生的事情发生了！</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#给大多数人用的天生都不安全"><span class="toc-number">1.</span> <span class="toc-text">给大多数人用的天生都不安全</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常常发生的越权现象"><span class="toc-number">2.</span> <span class="toc-text">常常发生的越权现象</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#会话问题"><span class="toc-number">3.</span> <span class="toc-text">会话问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#log记录"><span class="toc-number">4.</span> <span class="toc-text">log记录</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#不应该发生的事情发生了！"><span class="toc-number">5.</span> <span class="toc-text">不应该发生的事情发生了！</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#傻吊与缓存"><span class="toc-number">6.</span> <span class="toc-text">傻吊与缓存</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#连接问题"><span class="toc-number">7.</span> <span class="toc-text">连接问题</span></a></li></ol>
 		
 		</div>
 		
 		<p>  对于管理型后台往往伴随着大量的删除和更新操作,与多家“浏览器”的“优化”糅合在一起,使得相关开发需要思考的更多,保证每次操作的数据的准确与安全变得十分重要!<br><a id="more"></a></p>
-<h1 id="给大多数人用的天生都不安全">给大多数人用的天生都不安全</h1><h1 id="常常发生的越权现象">常常发生的越权现象</h1><h1 id="会话问题">会话问题</h1><h1 id="log记录">log记录</h1><h1 id="正确面对不应该发生的事情发生了！">正确面对不应该发生的事情发生了！</h1>  
+<h1 id="给大多数人用的天生都不安全">给大多数人用的天生都不安全</h1><p>  凡是别人提供的都是不可靠的,ok?<br>  因为操作的不确定性导致只能引导输入你想要的东西,但是完全无法控制.所以只能使用白名单的方式,也就是我不管你输入什么,我只要这种数据,只要不是这种数据要么强制给你转成这种,要么一律失败。<br>  这种方式不是理想的方式,但是现今也没有更好的办法!</p>
+<h1 id="常常发生的越权现象">常常发生的越权现象</h1><p>  凡是在后台url中见到<code>&amp;id=xxx</code>这种标示,基本都是不安全的,假如说某编辑页面见到这个,更是不安全中的不安全,为了避免这种情况就要尽可能的控制变量,那么如何控制变量呢?就要找到每个用户的唯一性标识id,通过这个id来尽可能的找出与这个id相关联的并且不需要用户来主动输入的数据作为控制变量的手段.<br>  但凡有增删改的操作,最少都要用这个用户唯一id与前台获取到的本条数据的id来进行联合判断,能limit 1尽量limit 1,缩小安全范围.<br>  为了减少越权现象,如果可能的话应当把这种关键性id隐藏改用post方式传递或者退一步来讲使用双向加密来加密这个id.<br>  上面说的用户唯一id等数据,切记不要通过客户端来获取,来保证对每条数据的操作只有一个变量是不可控的!</p>
+<h1 id="会话问题">会话问题</h1><p>  利用session保持登录是个技术活.那么如何完美的控制session在一段时间内过期呢?<br>  什么叫完美控制?就是我让他生成的时候必须生成一个没有过的新的来替换原来的,我让他删除的时候就必须不能存在.我让他什么时候生效他就不许在这个时间段内生效,过了就不生效.</p>
+<p>  众所周知,php中每个session靠提供给客户端的sessionid来标识并且将数据默认存到tmp目录下面,而客户端默认是使用cookies来保存的sessionid,并且由于session采用惰性删除和特有的随机垃圾回收机制,还有由于存在多应用共享session和减少磁盘IO的情况下使用memcache来保存session数据.以上种种使得session处于各变量的影响当中.<br>为了完美控制就要消除不必要变量:</p>
+<ol>
+<li>不使用cookie保存sessionid,去除客户端cookie变量,可以将PHPSESSIONID带在url后面.</li>
+<li>不使用memcache保存session数据,多应用使用同一个存储空间,但是各个应用使用的并不是同一个lifetime时间就会滋生变量,管理后台没这个必要蹚浑水.</li>
+<li>严格控制生效时间,可以在生成session时设立一个时间戳,每次进行比较.</li>
+<li>对于同一sessionid在同一时间访问,每次访问会对tmp目录下的session文件产生独占锁,并行就会变为串行.可以使用session_write_close()结束当前独占锁.</li>
+</ol>
+<h1 id="log记录">log记录</h1><p>  由于每次操作的不确定性,需要开启探案模式…那么如何完美的记录下用户的每一步操作和带来的影响呢?像这种管理后台,应当对特有的几个操作点进行侵入式的下日志,为了达到精确定位效果.<br>  每条日志数据尽可能全面记录所有内容,起码要有date,$_POST,$_GET,$_SESSION,$_COOKIE,$_SERVER,session_id(),level等等,并且使用json格式打包每条数据.因为json的通用性和直观性会使得每行数据都能够处理.而不会发生当事故发生的时候肉眼观察,简单的几个shell命令就能完成常规分析.</p>
+<h1 id="不应该发生的事情发生了！">不应该发生的事情发生了！</h1><p>  假如由于以上原因导致增删改的数据出问题了怎么办?及时发现了怎么办?如何尽可能的补救?<br>  哎!能不补救就不补救,尽量从日志内容取材,尽量手工拼装需要执行的sql.<br>  擦擦电脑谈谈灰,尽力了爱特么咋地咋地吧!</p>
+<h1 id="傻吊与缓存">傻吊与缓存</h1><p>  后台的操作往往对应着前台页面的更新,用户一般都是傻吊不知道缓存是什么意思.后台操作对应前台往往是一对多的,往往后台一个增删改,就要求前台和相关接口数据同步或者短时间内同步更新,也就是要达到实时效果.但是前台和相关接口肯定有着不规律的大量的缓存的,如何主动更新缓存和频繁操作下频繁更新缓存就是个很大问题,</p>
+<h1 id="连接问题">连接问题</h1><p>  大家都知道长连接好,对于管理型的后台来说,由于流量不是很大,不会存在并发情况,所以使用长连接并不会造成连接数写满的情况,所以memcache和mysql可以改成长连接+单例模式来加快连接速度.<br>  但是凡事不是绝对的,假如后台用户存在很多傻吊恶意操作,使得长连接大量维持,反而大量空耗服务器资源,还要根据相关情况去判断.</p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
@@ -153,7 +167,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目錄</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#给大多数人用的天生都不安全"><span class="toc-number">1.</span> <span class="toc-text">给大多数人用的天生都不安全</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常常发生的越权现象"><span class="toc-number">2.</span> <span class="toc-text">常常发生的越权现象</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#会话问题"><span class="toc-number">3.</span> <span class="toc-text">会话问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#log记录"><span class="toc-number">4.</span> <span class="toc-text">log记录</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#正确面对不应该发生的事情发生了！"><span class="toc-number">5.</span> <span class="toc-text">正确面对不应该发生的事情发生了！</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#给大多数人用的天生都不安全"><span class="toc-number">1.</span> <span class="toc-text">给大多数人用的天生都不安全</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常常发生的越权现象"><span class="toc-number">2.</span> <span class="toc-text">常常发生的越权现象</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#会话问题"><span class="toc-number">3.</span> <span class="toc-text">会话问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#log记录"><span class="toc-number">4.</span> <span class="toc-text">log记录</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#不应该发生的事情发生了！"><span class="toc-number">5.</span> <span class="toc-text">不应该发生的事情发生了！</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#傻吊与缓存"><span class="toc-number">6.</span> <span class="toc-text">傻吊与缓存</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#连接问题"><span class="toc-number">7.</span> <span class="toc-text">连接问题</span></a></li></ol>
  
   </div>
 
